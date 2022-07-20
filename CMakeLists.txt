@@ -45,7 +45,7 @@ message(STATUS
 add_library(pdiff lpyramid.cpp rgba_image.cpp metric.cpp)
 target_include_directories(pdiff PUBLIC ${FreeImage_SOURCE_DIR}/Source)
 target_link_libraries(pdiff PUBLIC FreeImage)
-target_link_options(pdiff INTERFACE "LINKER:-rpath,${FreeImage_BINARY_DIR}")
+target_link_options(pdiff INTERFACE "LINKER:-rpath,${FreeImage_BINARY_DIR}/${CMAKE_BUILD_TYPE}")
 
 # Packing stuff.
 set(CPACK_PACKAGE_VERSION_MAJOR "1")
