@@ -6,6 +6,13 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+include(GNUInstallDirs)
+file(RELATIVE_PATH relDir
+  ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}
+  ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}
+)
+set(CMAKE_INSTALL_RPATH $ORIGIN $ORIGIN/${relDir})
+
 if(NOT MSVC)
     add_compile_options(
         -Wall -Wextra -pedantic -Wcast-qual -Wpointer-arith -Winit-self
