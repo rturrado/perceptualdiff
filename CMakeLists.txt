@@ -30,17 +30,21 @@ if(SANITIZERS)
 endif()
 
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR})
-set(FREEIMAGE_FIND_REQUIRED, TRUE)
-find_package(FreeImage)
+
+include(FetchContent)
+FetchContent_Declare(FreeImage
+    GIT_REPOSITORY https://github.com/mlomb/FreeImage.git
+    GIT_TAG "4c8ccf2761de9ee27ac16d9b730fd153300e6923"
+)
+FetchContent_MakeAvailable(FreeImage)
+message(STATUS
+    "[${PROJECT_NAME}] Target include directories:\n"
+    "      FreeImage: ${FreeImage_SOURCE_DIR}/Source\n"
+)
 
 add_library(pdiff lpyramid.cpp rgba_image.cpp metric.cpp)
-target_include_directories(pdiff SYSTEM PRIVATE ${FREEIMAGE_INCLUDE_DIRS})
-target_link_libraries(pdiff PRIVATE ${FREEIMAGE_LIBRARIES})
-
-add_executable(perceptualdiff compare_args.cpp perceptualdiff.cpp)
-target_link_libraries(perceptualdiff PRIVATE pdiff)
-
-install(TARGETS perceptualdiff DESTINATION bin)
+target_include_directories(pdiff PUBLIC ${FreeImage_SOURCE_DIR}/Source)
+target_link_libraries(pdiff PUBLIC FreeImage)
 
 # Packing stuff.
 set(CPACK_PACKAGE_VERSION_MAJOR "1")

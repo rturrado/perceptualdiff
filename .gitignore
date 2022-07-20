@@ -16,3 +16,4 @@ coverage_output
 .project
 build/
 perceptualdiff.dSYM/
+/.vs
