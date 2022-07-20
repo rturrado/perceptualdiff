@@ -6,13 +6,6 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-include(GNUInstallDirs)
-file(RELATIVE_PATH relDir
-  ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}
-  ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}
-)
-set(CMAKE_INSTALL_RPATH $ORIGIN $ORIGIN/${relDir})
-
 if(NOT MSVC)
     add_compile_options(
         -Wall -Wextra -pedantic -Wcast-qual -Wpointer-arith -Winit-self
@@ -52,6 +45,7 @@ message(STATUS
 add_library(pdiff lpyramid.cpp rgba_image.cpp metric.cpp)
 target_include_directories(pdiff PUBLIC ${FreeImage_SOURCE_DIR}/Source)
 target_link_libraries(pdiff PUBLIC FreeImage)
+target_link_options(pdiff INTERFACE "LINKER:-rpath,${FreeImage_BINARY_DIR}")
 
 # Packing stuff.
 set(CPACK_PACKAGE_VERSION_MAJOR "1")
