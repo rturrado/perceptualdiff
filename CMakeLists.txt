@@ -46,12 +46,6 @@ add_library(pdiff lpyramid.cpp rgba_image.cpp metric.cpp)
 target_include_directories(pdiff PUBLIC ${FreeImage_SOURCE_DIR}/Source)
 target_link_libraries(pdiff PUBLIC FreeImage)
 
-install(TARGETS pdiff
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
-)
-
 # Packing stuff.
 set(CPACK_PACKAGE_VERSION_MAJOR "1")
 set(CPACK_PACKAGE_VERSION_MINOR "2")
