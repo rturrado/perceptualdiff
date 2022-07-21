@@ -45,13 +45,12 @@ message(STATUS
 add_library(pdiff lpyramid.cpp rgba_image.cpp metric.cpp)
 target_include_directories(pdiff PUBLIC ${FreeImage_SOURCE_DIR}/Source)
 target_link_libraries(pdiff PUBLIC FreeImage)
-set(free_image_binary_dir "${FreeImage_BINARY_DIR}/${CMAKE_BUILD_TYPE}")
-cmake_path(NATIVE_PATH free_image_binary_dir NORMALIZE free_image_native_binary_dir)
-message(STATUS
-    "[${PROJECT_NAME}] Target link directories:\n"
-    "      FreeImage: ${free_image_native_binary_dir}\n"
+
+install(TARGETS pdiff
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
 )
-target_link_options(pdiff INTERFACE "LINKER:-rpath,${free_image_native_binary_dir}")
 
 # Packing stuff.
 set(CPACK_PACKAGE_VERSION_MAJOR "1")
