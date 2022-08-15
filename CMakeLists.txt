@@ -1,8 +1,6 @@
 project(perceptualdiff)
 
-if (POLICY CMP0128)
-    cmake_policy(SET CMP0128 NEW)
-endif()
+cmake_policy(SET CMP0128 NEW)
 
 cmake_minimum_required(VERSION 3.1)
 
