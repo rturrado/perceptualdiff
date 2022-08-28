@@ -5,4 +5,4 @@ This fork:
 - Added mlomb/FreeImage through FetchContent.
 - Removed creation of PerceptualDiff executable.
 - Removed install command.
-- Added check for policy CMP0128.
+- Added check for CMake policy CMP0128.
