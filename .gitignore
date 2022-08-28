@@ -17,3 +17,4 @@ coverage_output
 build/
 perceptualdiff.dSYM/
 /.vs
+/CMakeSettings.json

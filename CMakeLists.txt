@@ -2,7 +2,7 @@ project(perceptualdiff)
 
 cmake_policy(SET CMP0128 NEW)
 
-cmake_minimum_required(VERSION 3.1)
+cmake_minimum_required(VERSION 3.1...3.22)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -36,7 +36,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR})
 include(FetchContent)
 FetchContent_Declare(FreeImage
     GIT_REPOSITORY https://github.com/rturrado/FreeImage.git
-    GIT_TAG "eb1a2ad20a6579854b56cc73eb97b7e1aa2c5861"
+    GIT_TAG "012b8fa93cbca2ed78f6673679e4912ef4cb9858"
 )
 FetchContent_MakeAvailable(FreeImage)
 message(STATUS
@@ -54,7 +54,7 @@ set(CPACK_PACKAGE_VERSION_MINOR "2")
 set(CPACK_PACKAGE_VERSION_PATCH "0")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "An image comparison utility.")
 set(CPACK_PACKAGE_VENDOR "pdiff dev team")
-set(CPACK_PACKAGE_DESCRIPTION_FILE ${CMAKE_CURRENT_SOURCE_DIR}/README.rst)
+set(CPACK_PACKAGE_DESCRIPTION_FILE ${CMAKE_CURRENT_SOURCE_DIR}/README.md)
 set(CPACK_GENERATOR TGZ)
 set(CPACK_SOURCE_PACKAGE_FILE_NAME
     "perceptualdiff-${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}.${CPACK_PACKAGE_VERSION_PATCH}"
