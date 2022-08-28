@@ -1,4 +1,4 @@
-# Perceptual Diff
+# perceptualdiff
 Fork of [myint/perceptualdiff](https://github.com/myint/perceptualdiff), a program that compares two images using a perceptually based image metric.
 
 This fork:
