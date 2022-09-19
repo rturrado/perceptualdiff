@@ -15,16 +15,16 @@ set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR})
 include(FetchContent)
 FetchContent_Declare(FreeImage
     GIT_REPOSITORY https://github.com/rturrado/FreeImage.git
-    GIT_TAG "662a30053ef0fb3e0a15e52967077eb7a84ec448"
+    GIT_TAG "2b7c136ac4ffd336cec80d542aac98fda25db26b"
 )
 FetchContent_MakeAvailable(FreeImage)
-message(STATUS
-    "[${PROJECT_NAME}] Target include directories:\n"
-    "      FreeImage: ${FreeImage_SOURCE_DIR}/Source\n"
-)
 
 add_library(pdiff lpyramid.cpp rgba_image.cpp metric.cpp)
 target_include_directories(pdiff SYSTEM PRIVATE ${FreeImage_SOURCE_DIR}/Source)
+message(STATUS
+        "[${PROJECT_NAME}] Target include directories:\n"
+        "      FreeImage: ${FreeImage_SOURCE_DIR}/Source\n"
+        )
 target_link_libraries(pdiff PRIVATE
     FreeImage
     OpenMP::OpenMP_CXX
@@ -43,8 +43,8 @@ if(SANITIZERS)
     target_compile_options(pdiff PRIVATE
         -fsanitize=address,undefined -fno-omit-frame-pointer
     )
-    set(CMAKE_EXE_LINKER_FLAGS
-        "${CMAKE_EXE_LINKER_FLAGS} -fsanitize=address,undefined"
+    target_link_options(pdiff PRIVATE
+        -fsanitize=address,undefined
     )
 endif()
 
