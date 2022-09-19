@@ -8,20 +8,13 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+find_package(OpenMP)
+
 if(NOT MSVC)
     add_compile_options(
         -Wall -Wextra -pedantic -Wcast-qual -Wpointer-arith -Winit-self
         -Wswitch-default -Wmissing-include-dirs -Wold-style-cast
         -Wnon-virtual-dtor -Wshadow -Wno-unknown-pragmas)
-endif()
-
-find_package(OpenMP)
-if(OPENMP_FOUND)
-    add_compile_options(${OpenMP_CXX_FLAGS})
-    if(NOT MSVC)
-        set(CMAKE_EXE_LINKER_FLAGS
-            "${CMAKE_EXE_LINKER_FLAGS} ${OpenMP_CXX_FLAGS}")
-    endif()
 endif()
 
 option(SANITIZERS "Enable sanitizers" FALSE)
@@ -46,7 +39,10 @@ message(STATUS
 
 add_library(pdiff lpyramid.cpp rgba_image.cpp metric.cpp)
 target_include_directories(pdiff SYSTEM PRIVATE ${FreeImage_SOURCE_DIR}/Source)
-target_link_libraries(pdiff PRIVATE FreeImage)
+target_link_libraries(pdiff PRIVATE
+    FreeImage
+    OpenMP::OpenMP_CXX
+)
 
 # Packing stuff.
 set(CPACK_PACKAGE_VERSION_MAJOR "1")
