@@ -45,8 +45,8 @@ message(STATUS
 )
 
 add_library(pdiff lpyramid.cpp rgba_image.cpp metric.cpp)
-target_include_directories(pdiff SYSTEM PRIVATE ${FreeImage_SOURCE_DIR}/Source)
-target_link_libraries(pdiff PRIVATE FreeImage)
+target_include_directories(pdiff SYSTEM PUBLIC ${FreeImage_SOURCE_DIR}/Source)
+target_link_libraries(pdiff PUBLIC FreeImage)
 
 # Packing stuff.
 set(CPACK_PACKAGE_VERSION_MAJOR "1")
