@@ -10,26 +10,12 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 find_package(OpenMP)
 
-if(NOT MSVC)
-    add_compile_options(
-        -Wall -Wextra -pedantic -Wcast-qual -Wpointer-arith -Winit-self
-        -Wswitch-default -Wmissing-include-dirs -Wold-style-cast
-        -Wnon-virtual-dtor -Wshadow -Wno-unknown-pragmas)
-endif()
-
-option(SANITIZERS "Enable sanitizers" FALSE)
-if(SANITIZERS)
-    add_compile_options(-fsanitize=address,undefined -fno-omit-frame-pointer)
-    set(CMAKE_EXE_LINKER_FLAGS
-        "${CMAKE_EXE_LINKER_FLAGS} -fsanitize=address,undefined")
-endif()
-
 set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR})
 
 include(FetchContent)
 FetchContent_Declare(FreeImage
     GIT_REPOSITORY https://github.com/rturrado/FreeImage.git
-    GIT_TAG "ad64bf48862ff090f13195431eea56a495337d85"
+    GIT_TAG "662a30053ef0fb3e0a15e52967077eb7a84ec448"
 )
 FetchContent_MakeAvailable(FreeImage)
 message(STATUS
@@ -43,6 +29,24 @@ target_link_libraries(pdiff PRIVATE
     FreeImage
     OpenMP::OpenMP_CXX
 )
+
+if(NOT MSVC)
+    target_compile_options(pdiff PRIVATE
+        -Wall -Wextra -pedantic -Wcast-qual -Wpointer-arith -Winit-self
+        -Wswitch-default -Wmissing-include-dirs -Wold-style-cast
+        -Wnon-virtual-dtor -Wshadow -Wno-unknown-pragmas
+    )
+endif()
+
+option(SANITIZERS "Enable sanitizers" FALSE)
+if(SANITIZERS)
+    target_compile_options(pdiff PRIVATE
+        -fsanitize=address,undefined -fno-omit-frame-pointer
+    )
+    set(CMAKE_EXE_LINKER_FLAGS
+        "${CMAKE_EXE_LINKER_FLAGS} -fsanitize=address,undefined"
+    )
+endif()
 
 # Packing stuff.
 set(CPACK_PACKAGE_VERSION_MAJOR "1")
