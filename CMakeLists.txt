@@ -29,7 +29,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR})
 include(FetchContent)
 FetchContent_Declare(FreeImage
     GIT_REPOSITORY https://github.com/rturrado/FreeImage.git
-    GIT_TAG "ad8fcf3c3538e4b6bb34dabdff3e333109164a85"
+    GIT_TAG "ad64bf48862ff090f13195431eea56a495337d85"
 )
 FetchContent_MakeAvailable(FreeImage)
 message(STATUS
