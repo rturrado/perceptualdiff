@@ -36,7 +36,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR})
 include(FetchContent)
 FetchContent_Declare(FreeImage
     GIT_REPOSITORY https://github.com/rturrado/FreeImage.git
-    GIT_TAG "012b8fa93cbca2ed78f6673679e4912ef4cb9858"
+    GIT_TAG "ad8fcf3c3538e4b6bb34dabdff3e333109164a85"
 )
 FetchContent_MakeAvailable(FreeImage)
 message(STATUS
@@ -45,8 +45,8 @@ message(STATUS
 )
 
 add_library(pdiff lpyramid.cpp rgba_image.cpp metric.cpp)
-target_include_directories(pdiff PUBLIC ${FreeImage_SOURCE_DIR}/Source)
-target_link_libraries(pdiff PUBLIC FreeImage)
+target_include_directories(pdiff SYSTEM PRIVATE ${FreeImage_SOURCE_DIR}/Source)
+target_link_libraries(pdiff PRIVATE FreeImage)
 
 # Packing stuff.
 set(CPACK_PACKAGE_VERSION_MAJOR "1")
