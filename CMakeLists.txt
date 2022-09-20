@@ -15,7 +15,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR})
 include(FetchContent)
 FetchContent_Declare(FreeImage
     GIT_REPOSITORY https://github.com/rturrado/FreeImage.git
-    GIT_TAG "2b7c136ac4ffd336cec80d542aac98fda25db26b"
+    GIT_TAG "eb12025134c989dc78144ba68e0a75c2601492e9"
 )
 FetchContent_MakeAvailable(FreeImage)
 
@@ -25,10 +25,7 @@ message(STATUS
         "[${PROJECT_NAME}] Target include directories:\n"
         "      FreeImage: ${FreeImage_SOURCE_DIR}/Source\n"
         )
-target_link_libraries(pdiff PRIVATE
-    FreeImage
-    OpenMP::OpenMP_CXX
-)
+target_link_libraries(pdiff PRIVATE FreeImage)
 
 if(NOT MSVC)
     target_compile_options(pdiff PRIVATE
