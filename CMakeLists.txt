@@ -15,16 +15,16 @@ set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR})
 include(FetchContent)
 FetchContent_Declare(FreeImage
     GIT_REPOSITORY https://github.com/rturrado/FreeImage.git
-    GIT_TAG "eb12025134c989dc78144ba68e0a75c2601492e9"
+    GIT_TAG "960275bf633393f94b990162e06d19d9499d3ecd"
 )
 FetchContent_MakeAvailable(FreeImage)
 
 add_library(pdiff lpyramid.cpp rgba_image.cpp metric.cpp)
 target_include_directories(pdiff SYSTEM PRIVATE ${FreeImage_SOURCE_DIR}/Source)
 message(STATUS
-        "[${PROJECT_NAME}] Target include directories:\n"
-        "      FreeImage: ${FreeImage_SOURCE_DIR}/Source\n"
-        )
+    "[${PROJECT_NAME}] Target include directories:\n"
+    "      FreeImage: ${FreeImage_SOURCE_DIR}/Source\n"
+)
 target_link_libraries(pdiff PRIVATE FreeImage)
 
 if(NOT MSVC)
@@ -37,12 +37,18 @@ endif()
 
 option(SANITIZERS "Enable sanitizers" FALSE)
 if(SANITIZERS)
-    target_compile_options(pdiff PRIVATE
-        -fsanitize=address,undefined -fno-omit-frame-pointer
-    )
-    target_link_options(pdiff PRIVATE
-        -fsanitize=address,undefined
-    )
+    if(MSVC)
+        target_compile_options(pdiff PRIVATE
+            -fsanitize=address
+        )
+    elseif(${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang" OR ${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")
+        target_compile_options(pdiff PRIVATE
+            -fsanitize=address,undefined -fno-omit-frame-pointer
+        )
+        target_link_options(pdiff PRIVATE
+            -fsanitize=address,undefined
+        )
+    endif()
 endif()
 
 # Packing stuff.
